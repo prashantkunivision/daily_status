@@ -1,0 +1,69 @@
+extract email and phone number from raw api response as a string.
+
+response = '{"user":"john","email":"john.doe@gmail.com","phone":"9876543210"}'
+import re 
+pattern=r'[\w.-]+@[\w.-]+\.[a-zA-Z]{2,3}'
+res=re.findall(pattern,response)
+print(res)
+
+pattern1=r'[\+91]?\d{10}'
+phone=re.findall(pattern1,response)
+print(phone)
+
+--------------------------------------------------
+TEST PASS: login_test
+TEST FAIL: payment_test
+TEST PASS: search_test
+TEST FAIL: checkout_test 
+#output:payment_test
+checkout_test
+
+import re 
+pattern = r'FAIL: (.*)'                             #(.*) → captures everything after it (greedy match)
+with open('log.txt', 'r') as file:
+    data=file.read()
+    matches = re.findall(pattern, data)
+    print(matches)     #['payment failed', 'connection lost']
+
+    # for line in file:
+    #     match = re.search(pattern, line)
+    #     if match:
+    #         print(match.group(1))  #payment_test
+					checkout_test
+--------------------------------------------------------
+import re
+
+log = """TEST PASS: login_test
+TEST FAIL: payment_test
+TEST PASS: search_test
+TEST FAIL: checkout_test"""
+
+pattern = re.compile(r'TEST FAIL:\s*(\w+)')     #(\w+) capturing Group ,[] Used to match any one character
+failed_tests = pattern.findall(log)
+print(failed_tests)
+
+-------------------------------
+extract only domain name
+s="""https://www.example.com
+http://test.org"""
+import re  
+pattern=r'https?://(www\.)?' #(www\.)? matches www. if it exists, otherwise ignores it
+result=re.sub(pattern,'',s)   ## https? matches http or https
+print(result)
+
+
+Validate URLs and extract domain names
+import re
+text = """
+https://www.example.com
+http://test.org
+https://sub.domain.co.in/path?x=1
+invalid_url
+"""
+
+# Regex: validate + capture domain
+pattern = re.compile(r'https?://(?:www\.)?([\w.-]+\.[a-zA-Z]{2,})')
+
+matches = pattern.findall(text)
+print(matches)
+---------------------------------
